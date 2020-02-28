@@ -21,13 +21,7 @@ abstract class Vue
             <meta name=\"description\" content=\"\">
             <meta name=\"author\" content=\"\">
 
-            <title>GEG - Gestion</title>
-
-            <!-- Bootstrap core CSS -->
-            <link href=\"/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">
-
-            <!-- Custom styles for this template -->
-            <link href=\"/css/simple-sidebar.css\" rel=\"stylesheet\">
+            <title>BDD-Appli</title>
 
           </head>";
     }
