@@ -33,7 +33,7 @@ abstract class Vue
         $request = $slim->request;
         return 
           "<body>
-            Salut
+            
           </body>";
     }
 }
