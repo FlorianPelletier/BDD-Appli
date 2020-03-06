@@ -11,4 +11,5 @@ class Rating_Board extends Model
     protected $table = 'rating_board';
     protected $primaryKey = 'id';
 
+
 }
