@@ -1,0 +1,53 @@
+Question 1 :
+    Categorie(id_cat, nom, descr, #idAnnonce)
+    Annonce(id_annonce, titre, date, texte, #idCategorie)
+    Photo(id, file, date, taille_octet, #idAnnonce)
+    Pivot1(#id_cat, #id_annonce)
+
+Question 2 :
+
+Dans annonce :
+    public function categories(){
+        return $this->belongsToMany('categories', 'Pivot1', 'id_annonce', 'id_cat');
+    }
+    public function photos(){
+        return $this->hasMany('photos', 'id')
+    }
+
+Dans catégories :
+    public function annonces(){
+        return $this->belongsToMany('annonces', 'pivot1', 'id_cat', 'id_annonce');
+    }
+
+Dans Photos :
+    public functino annonces(){
+        return $this->belongsTo('annonces', 'id'):
+    }
+
+
+Question 3 :
+    1) photos de l'annonce 22
+        $annonce = Annonce::find(22);
+        $photos = $annonce->photos()->get();
+
+    2) photos de l'annonce 22 ou la taille > 100000
+        $annonce = Annonce::find(22);
+        $photos = $annonce->photos()->where('taille_octet', '>=', 100000)->get();
+
+    3) annonce avec plus de 3 photos
+       $annonces = Annonce::has('photos', '>', 3)->get();
+
+    4) annonce possédant des photos dont la taille > 100000
+        $photos = Annonce::whereHas('Photos', function ($q){
+            $q->where('taille_octet', '>', 100000);
+        })->get();
+
+Question 4 :
+    ajouter une photo a l'annonce 22
+        $photo = Photo::create(['id'=>100, 'file'=>'chaine', 'date'=>'12/12/12', 'taille'=>100000]);
+        $annonce = Annonce::where('id_annonce', 'like', '22')->attach('100');
+
+Question 5 :
+    ajouter l'annonce 22 aux catégories 42 et 73
+        $annonce = Annonce::find([22]);
+        $annonce->categorie()->attach([42, 73]);

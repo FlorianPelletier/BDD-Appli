@@ -51,7 +51,6 @@ class controleurquestion
             echo "<li>".$game->name . " " . $game->deck . "</li>>";
         }
         echo "</ul>";
-
     }
 
 
