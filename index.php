@@ -35,6 +35,8 @@ $app->get('/', function () {
     //$controleur->q5();
 
     //$controleur->question21();
+    //$controleur->question22();
+    $controleur->question23();
 
 
     //$controleur->question27();

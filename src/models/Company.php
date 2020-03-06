@@ -12,6 +12,6 @@ class company extends Model
     protected $primaryKey = "id";
 
     public function games(){
-        return $this->belongsToMany('src\models\Game', 'game_developers', 'game_id', 'comp_id');
+        return $this->belongsToMany('src\models\Game', 'game_developers', 'comp_id', 'game_id');
     }
 }

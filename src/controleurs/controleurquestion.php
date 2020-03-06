@@ -70,27 +70,34 @@ class controleurquestion
         echo $res;
     }
 
-//les personnages des jeux dont le nom (du jeu) débute par 'Mario'
-public function question22(){
-$jeux = Game::where(‘name’,’like’,‘Mario%’)->get();
-$personnage = $jeux->personnage()->get();
-$res = “”;
-foreach ($personnage as $value){
-        $res .= “nom : “ . $value->name. “</br>”;
-}
-echo $res;
-}
+    //les personnages des jeux dont le nom (du jeu) débute par 'Mario'
+    public function question22(){
+        $jeux = Game::where('name', 'like', "Mario%")->get();
+        $res = '';
+        foreach ($jeux as $val){
+            $personnages = $val->personnages()->get();
+            foreach ($personnages as $value){
+                $res .= 'nom : ' . $value->name. '</br>';
+            }
+            echo $res;
+        }
 
-//les jeux développés par une compagnie dont le nom contient 'Sony'
-public function question23(){
-$compagnies = Company::where(‘name’,’like’,’%Sony%’)->get();
-    $jeux = $compagnies->games()->get();
-$res = “”;
-    foreach($jeux as $value){
-        $res .= “nom : “ .$value->name. “</br>”;
     }
-echo $res;
-}
+
+    //les jeux développés par une compagnie dont le nom contient 'Sony'
+    public function question23(){
+        $compagnies = Company::where('name', 'like', '%Sony%')->get();
+        $res = '';
+        foreach ($compagnies as $val){
+            $jeux = $val->games()->get();
+
+            foreach($jeux as $value){
+                $res .= 'nom : ' .$value->name. '</br>';
+            }
+            echo $res;
+        }
+
+    }
 
    
 
