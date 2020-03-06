@@ -10,4 +10,8 @@ class company extends Model
 {
     protected $table = "company";
     protected $primaryKey = "id";
+
+    public function games(){
+        return $this->belongsToMany('src\models\Game', 'game_developers', 'game_id', 'comp_id');
+    }
 }
