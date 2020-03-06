@@ -34,7 +34,12 @@ $app->get('/', function () {
     ///------QUESTION 5 -----///
     //$controleur->q5();
 
-    $controleur->question21();
+    //$controleur->question21();
+
+
+    //$controleur->question27();
+
+
 })->setName("Menu");
 
 $db = new DB();

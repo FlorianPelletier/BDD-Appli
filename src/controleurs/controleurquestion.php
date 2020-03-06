@@ -71,6 +71,30 @@ class controleurquestion
 
     }
 
+    //les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient
+    //"Inc." et dont le rating initial contient "3+"
+    //TODO not working
+    public function question27(){
+        $jeux = Game::where('name', 'like', 'Mario%')
+            ->whereHas('company', function($q){
+                $q->where('name', 'like', '%Inc%');
+            })->whereHas('ratings', function($q){
+                $q->where('name', 'like', '%3+%');
+            })->get();
+
+
+        foreach ($jeux as $values){
+            echo "Nom du jeu : ".$values->name."</br>";
+        }
+    }
+
+    //les jeux dont le nom débute Mario, publiés par une compagnie dont le nom contient "Inc",
+    //dont le rating initial contient "3+" et ayant reçu un avis de la part du rating board nommé
+    //"CERO"
+    public function question28(){
+
+    }
+
 
 
 }
