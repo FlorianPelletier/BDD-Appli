@@ -18,6 +18,7 @@ $app->get('/', function () {
 
 
     $controleur = new src\controleurs\controleurquestion();
+    ///------Partie 1 -----///
 
     //------QUESTION 1 -----//
     //$controleur->q1();
@@ -34,16 +35,30 @@ $app->get('/', function () {
     ///------QUESTION 5 -----///
     //$controleur->q5();
 
+    ///------Partie 2 -----///
+    ///
+    ///------QUESTION 1 -----///
     //$controleur->question21();
+
+    ///------QUESTION 2 -----///
     //$controleur->question22();
+
+    ///------QUESTION 3 -----///
     //$controleur->question23();
 
+    ///------QUESTION 4 -----///
     //$controleur->question24();
-    $controleur->question25();
 
+    ///------QUESTION 5 -----///
+    //$controleur->question25();
 
+    ///------QUESTION 7 -----///
     //$controleur->question27();
+
+    ///------QUESTION 8 -----///
     //$controleur->question28();
+
+    ///------QUESTION 9 -----///
     //$controleur->question29();
 
 
