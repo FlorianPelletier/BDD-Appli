@@ -67,9 +67,29 @@ class controleurquestion
         echo $res;
     }
 
-    public function question22(){
+//les personnages des jeux dont le nom (du jeu) débute par 'Mario'
+public function question22(){
+$jeux = Game::where(‘name’,’like’,‘Mario%’)->get();
+$personnage = $jeux->personnage()->get();
+$res = “”;
+foreach ($personnage as $value){
+        $res .= “nom : “ . $value->name. “</br>”;
+}
+echo $res;
+}
 
+//les jeux développés par une compagnie dont le nom contient 'Sony'
+public function question23(){
+$compagnies = Company::where(‘name’,’like’,’%Sony%’)->get();
+    $jeux = $compagnies->games()->get();
+$res = “”;
+    foreach($jeux as $value){
+        $res .= “nom : “ .$value->name. “</br>”;
     }
+echo $res;
+}
+
+   
 
     //les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient
     //"Inc." et dont le rating initial contient "3+"
