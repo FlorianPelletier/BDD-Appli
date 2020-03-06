@@ -7,7 +7,10 @@ namespace src\controleurs;
 use src\models\character;
 use src\models\company;
 use src\models\game;
+use src\models\Genre;
 use src\models\platform;
+use src\models\Rating_Board;
+use src\models\Game_Rating;
 
 class controleurquestion
 {
@@ -73,11 +76,10 @@ class controleurquestion
 
     //les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient
     //"Inc." et dont le rating initial contient "3+"
-    //TODO not working
     public function question27(){
         $jeux = Game::where('name', 'like', 'Mario%')
-            ->whereHas('company', function($q){
-                $q->where('name', 'like', '%Inc%');
+            ->whereHas('publishers', function($q){
+                $q->where('name', 'like', '%Inc.%');
             })->whereHas('ratings', function($q){
                 $q->where('name', 'like', '%3+%');
             })->get();
@@ -91,8 +93,41 @@ class controleurquestion
     //les jeux dont le nom débute Mario, publiés par une compagnie dont le nom contient "Inc",
     //dont le rating initial contient "3+" et ayant reçu un avis de la part du rating board nommé
     //"CERO"
+    //TODO FIX
     public function question28(){
+        $jeux = Game::where('name', 'like', 'Mario%')
+            ->whereHas('publishers', function ($q){
+                $q->where('name', 'like', '%Inc%');
+            })->whereHas('ratings', function($q){
+                $q->where('name', 'like', '%3+%');
+            })->whereHas('rating_board', function($q){
+                $q->where('name', 'like', 'CERO');
+            })->get();
 
+        foreach ($jeux as $values){
+            echo "Nom du jeu : ".$values->name."</br>";
+        }
+    }
+
+    //ajouter un nouveau genre de jeu, et l'associer aux jeux 12, 56, 12, 345
+    public function question29(){
+        $nouveauGenre = new Genre();
+        $nouveauGenre->id = 51;
+        $nouveauGenre->name = 'newGenre';
+        $nouveauGenre->deck = 'un super nouveau genre';
+        $nouveauGenre->description = 'nouveau genre';
+        $nouveauGenre->save();
+
+        $nouveauGenre->jeux()->attach([12, 56, 21, 345]);
+
+        //tests
+        $genre = Genre::find(51);
+        echo $genre->name;
+
+        $jeux = Game::find([12, 56, 21, 345])->get();
+        foreach ($jeux as $val){
+            echo $val->genre;
+        }
     }
 
 

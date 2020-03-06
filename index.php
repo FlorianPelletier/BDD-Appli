@@ -38,6 +38,8 @@ $app->get('/', function () {
 
 
     //$controleur->question27();
+    //$controleur->question28();
+    //$controleur->question29();
 
 
 })->setName("Menu");
