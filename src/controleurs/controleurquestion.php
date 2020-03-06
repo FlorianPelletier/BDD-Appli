@@ -99,6 +99,17 @@ class controleurquestion
 
     }
 
+    //les jeux dont le nom débute par Mario et ayant plus de 3 personnages
+
+    public function question25(){
+        $games = Game::where(‘name’,’like’,'Mario')->has('characters', '>', '3')->get();
+        $jeux = $compagnies->games()->get();
+        $res = “”;
+        foreach($jeux as $value){
+            $res .= “nom : “ .$value->name. “</br>”;
+        }
+        echo $res;
+    }
    
 
     //les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient
