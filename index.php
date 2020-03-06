@@ -32,7 +32,9 @@ $app->get('/', function () {
     //$controleur->q4();
 
     ///------QUESTION 5 -----///
-    $controleur->q5();
+    //$controleur->q5();
+
+    $controleur->question21();
 })->setName("Menu");
 
 $db = new DB();

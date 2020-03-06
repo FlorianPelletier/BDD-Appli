@@ -14,7 +14,7 @@ class character extends Model
     protected $primaryKey = "id";
 
     //association des clés étrangères
-    public function asso(){
-        return $this->hasMany('src\models\character', '');
+    public function jeux(){
+        return $this->belongsToMany('src\models\Game', 'game2character','character_id', 'game_id');
     }
 }

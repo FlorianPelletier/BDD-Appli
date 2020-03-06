@@ -11,7 +11,8 @@ use src\models\platform;
 
 class controleurquestion
 {
-
+    //-------------------------------------------------------------------------------------------------------------
+    //Séance 1
     public function q1(){
         $games = game::where('name', 'like', '%Mario%')->get();
         foreach ($games as $game){
@@ -51,6 +52,23 @@ class controleurquestion
             echo "<li>".$game->name . " " . $game->deck . "</li>>";
         }
         echo "</ul>";
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //Séance 2
+    //afficher (name , deck) les personnages du jeu 12342
+    public function question21(){
+        $jeu = Game::find('12342');
+        $personnage = $jeu->personnages()->get();
+        $res = "";
+        foreach ($personnage as $value){
+            $res .= "nom : " . $value->name. "  /deck : ".$value->deck . "</br>";
+        }
+        echo $res;
+    }
+
+    public function question22(){
+
     }
 
 
