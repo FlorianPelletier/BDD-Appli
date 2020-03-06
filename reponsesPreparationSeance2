@@ -1,34 +1,33 @@
 Question 1 :
-    Categorie(id_cat, nom, descr, #idAnnonce)
+    Categorie(id_cat, nom, descr, #idAn)
     Annonce(id_annonce, titre, date, texte, #idCategorie)
     Photo(id, file, date, taille_octet, #idAnnonce)
     Pivot1(#id_cat, #id_annonce)
 
 Question 2 :
 
-Dans annonce :
+Dans Annonce :
     public function categories(){
         return $this->belongsToMany('categories', 'Pivot1', 'id_annonce', 'id_cat');
     }
     public function photos(){
-        return $this->hasMany('photos', 'id')
+        return $this->hasMany('photos', 'idAnnonce')
     }
 
-Dans catégories :
+Dans Catégories :
     public function annonces(){
         return $this->belongsToMany('annonces', 'pivot1', 'id_cat', 'id_annonce');
     }
 
 Dans Photos :
-    public functino annonces(){
-        return $this->belongsTo('annonces', 'id'):
+    public function annonces(){
+        return $this->belongsTo('annonces', 'idAn'):
     }
 
 
 Question 3 :
     1) photos de l'annonce 22
-        $annonce = Annonce::find(22);
-        $photos = $annonce->photos()->get();
+        $annonce = Annonce::find(22)->photos()->get();
 
     2) photos de l'annonce 22 ou la taille > 100000
         $annonce = Annonce::find(22);
@@ -49,5 +48,5 @@ Question 4 :
 
 Question 5 :
     ajouter l'annonce 22 aux catégories 42 et 73
-        $annonce = Annonce::find([22]);
+        $annonce = Annonce::find(22);
         $annonce->categorie()->attach([42, 73]);
