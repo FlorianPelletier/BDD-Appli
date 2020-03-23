@@ -62,6 +62,25 @@ $app->get('/', function () {
     //$controleur->question29();
 
 
+    ///------Partie 2 -----///
+    ///
+
+    ///------QUESTION 1 -----///
+    //$controleur->question31();
+
+    ///------QUESTION 2 -----///
+    //$controleur->question32();
+
+    ///------QUESTION 3 -----///
+    //$controleur->question33();
+
+    ///------QUESTION 4 -----///
+    //$controleur->question34();
+
+    ///------QUESTION 1 partie 2 -----///
+    $controleur->tempsExecution3();
+
+
 })->setName("Menu");
 
 $db = new DB();

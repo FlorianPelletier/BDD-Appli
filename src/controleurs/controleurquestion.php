@@ -166,5 +166,73 @@ class controleurquestion
     }
 
 
+    //Séance 3
+    //fonction pour convertir microtime en float
+    public function microtime_float()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
+
+    //lister l'ensemble des jeux
+    //provoque une erreur car trop de données pour php
+    public function question31(){
+        $time_start = $this->microtime_float();
+        Game::get();
+        echo $this->microtime_float()-$time_start . "s";
+    }
+
+    //lister le nom des jeux dont le nom contien mario
+    public function question32(){
+        $time_start = $this->microtime_float();
+        Game::where('name', 'like', '%Mario%')->get();
+        echo $this->microtime_float()-$time_start . "s";
+    }
+
+    //personnages des jeux dont le nom débute par 'Mario'
+    public function question33(){
+        $time_start = $this->microtime_float();
+        $jeux = Game::where('name', 'like', 'Mario%')->get();
+        foreach ($jeux as $val){
+            echo $val->name."<br>";
+        }
+        echo $this->microtime_float()-$time_start . "s";
+    }
+
+    //jeux dont le nom débute par 'Mario' et dont le rating initial initial contient '3+'
+    public function question34(){
+        $time_start = $this->microtime_float();
+        $jeux = Game::where('name', 'like', 'Mario%')
+            ->whereHas('ratings', function($q){
+                $q->where('name', 'like', '%3+%');
+            })->get();
+        foreach ($jeux as $val){
+            echo $val->name . "<br>";
+        }
+        echo $this->microtime_float()-$time_start . "s";
+    }
+
+    //partie 2 séance 3
+    public function debuteParValeur($valeur){
+        $time_start = $this->microtime_float();
+        Game::where('name', 'like', $valeur."%")->get();
+        return $this->microtime_float()-$time_start;
+    }
+
+    //mesure avec 3 valeurs différentes
+    public function tempsExecution3(){
+        $time_start = $this->microtime_float();
+        $temps1 = $this->debuteParValeur("Mario");
+        $temps2 = $this->debuteParValeur("Desert");
+        $temps3 = $this->debuteParValeur("Dragon");
+        echo "Temps de la première: " . $temps1 . "s<br>";
+        echo "Temps de la deuxième: " . $temps2 . "s<br>";
+        echo "Temps de la troisième: " . $temps3 . "s<br>";
+        echo "Total : ";
+        echo $this->microtime_float()-$time_start . "s";
+    }
+
+    //TODO pas compris
+
 
 }
