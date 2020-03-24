@@ -44,6 +44,14 @@ class gamecontroleur
         $page = $app->request->get('page');
 
         $games = Game::skip($page*200)->take($page*200+200)->select('id', 'name', 'alias', 'deck')->get();
+        $jeux = [];
+        $compteur = 0;
+        foreach ($games as $val){
+            $gamelink = array("links"=>array("self"=>array("href"=>"/api/games/".$val->id)));
+            $jeux[$compteur] = array("game"=>$val, "links"=>$gamelink);
+            $compteur++;
+        }
+
 
         if($page == 0){
             $paginationPrecedente = "/api/games?page=".($page);
@@ -58,8 +66,8 @@ class gamecontroleur
 
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
-        $games = array("games"=>$games, "links"=>$links);
-        echo json_encode($games);
+        $result = array("games"=>$jeux, "links"=>$links);
+        echo json_encode($result);
     }
 
     public function getComments($gameid)
@@ -94,9 +102,6 @@ class gamecontroleur
         $app->response->headers->set('Content-Type', 'application/json');
         $resultat = array("characters"=>$resultat);
         echo json_encode($resultat);
-
-
-
     }
 
 
