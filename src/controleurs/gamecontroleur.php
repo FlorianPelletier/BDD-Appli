@@ -27,8 +27,8 @@ class gamecontroleur
         }
 
         $links = array(
-            "comments"=>array("href"=>"/api/games/".$id."/comments"),
-            "characters"=>array("href"=>"/api/games/".$id."/characters")
+            "comments"=>array("href"=>$app->urlFor("comments", ["gameid"=>$id])),
+            "characters"=>array("href"=>$app->urlFor("characters", ["gameid"=>$id]))
         );
 
         $app->response->setStatus(200);
@@ -43,24 +43,21 @@ class gamecontroleur
 
         $page = $app->request->get('page');
 
-        $games = Game::skip($page*200)->take($page*200+200)->select('id', 'name', 'alias', 'deck')->get();
+        $games = Game::skip($page*200)->take(200)->select('id', 'name', 'alias', 'deck')->get();
         $jeux = [];
         $compteur = 0;
         foreach ($games as $val){
-            $gamelink = array("links"=>array("self"=>array("href"=>"/api/games/".$val->id)));
+            $gamelink = array("links"=>array("self"=>array("href"=>$app->urlFor("game", ["id"=>$val->id]))));
             $jeux[$compteur] = array("game"=>$val, "links"=>$gamelink);
             $compteur++;
         }
 
 
-        if($page == 0){
-            $paginationPrecedente = "/api/games?page=".($page);
-        } else if ($page<0){
-            $paginationPrecedente = "/api/games?page=0";
-        }else{
-            $paginationPrecedente = "/api/games?page=".($page-1);
-        }
-        $paginationSuivante = "/api/games?page=".($page+1);
+
+
+        //TODO dernière et première pages
+        $paginationPrecedente = $app->urlFor("games")."?page=".($page-1);
+        $paginationSuivante = $app->urlFor("games")."?page=".($page+1);
 
         $links = array("prev"=>array("href"=>$paginationPrecedente), "next"=>array("href"=>$paginationSuivante));
 
@@ -90,7 +87,7 @@ class gamecontroleur
             $perso = $g->personnages()->get();
             foreach ($perso as $value) {
 
-                $links = array("self" => array("href" => "/api/characters/" . $value->id));
+                $links = array("self" => array("href" => $app->urlFor("characters", ["gameid"=>$value->id])));
                 $personnages = array("id" => $value->id, "name" => $value->name);
                 $current = array("character" => $personnages, "links" => $links);
 

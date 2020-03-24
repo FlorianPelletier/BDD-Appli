@@ -22,11 +22,11 @@ $app->get("/api/games", function (){
 
 $app->get("/api/games/:gameid/comments", function ($gameid){
     (new \src\controleurs\gamecontroleur())->getComments($gameid);
-})->setName("games");
+})->setName("comments");
 
 $app->get("/api/games/:gameid/characters", function ($gameid){
     (new \src\controleurs\gamecontroleur())->getCharacters($gameid);
-});
+})->setName("characters");
 
 
 
