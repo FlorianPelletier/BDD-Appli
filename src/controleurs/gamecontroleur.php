@@ -42,7 +42,9 @@ class gamecontroleur
         $app = Slim::getInstance();
 
         $page = $app->request->get('page');
-
+        $g = Game::select('id')->get();
+        $pagemax = count($g);
+        $pagemax = round($pagemax/200)-1;
         $games = Game::skip($page*200)->take(200)->select('id', 'name', 'alias', 'deck')->get();
         $jeux = [];
         $compteur = 0;
@@ -52,12 +54,16 @@ class gamecontroleur
             $compteur++;
         }
 
-
-
-
-        //TODO dernière et première pages
-        $paginationPrecedente = $app->urlFor("games")."?page=".($page-1);
-        $paginationSuivante = $app->urlFor("games")."?page=".($page+1);
+        if ($page <= 0){
+            $paginationPrecedente = $app->urlFor("games")."?page=0";
+        }else{
+            $paginationPrecedente = $app->urlFor("games")."?page=".($page-1);
+        }
+        if($page >= $pagemax){
+            $paginationSuivante = $app->urlFor("games")."?page=".($pagemax);
+        }else{
+            $paginationSuivante = $app->urlFor("games")."?page=".($page+1);
+        }
 
         $links = array("prev"=>array("href"=>$paginationPrecedente), "next"=>array("href"=>$paginationSuivante));
 
