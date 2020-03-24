@@ -26,9 +26,15 @@ class gamecontroleur
             return;
         }
 
+        $links = array(
+            "comments"=>array("href"=>"/api/games/".$id."/comments"),
+            "characters"=>array("href"=>"/api/games/".$id."/characters")
+        );
+
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
-        echo json_encode($game);
+        $response = array("game"=>$game,"links"=>$links);
+        echo json_encode($response);
     }
 
     public function getGames()
@@ -60,11 +66,36 @@ class gamecontroleur
     {
         //l'id, le titre, le texte,
         //la date de création et le nom de l'utilisateur.
-        $commentaires = "";
-
-
+        $commentaires = "".$gameid;
         $commentaires = array("commentaires"=>$commentaires);
         echo json_encode($commentaires);
+    }
+
+    public function getCharacters($gameid)
+    {
+        $app = Slim::getInstance();
+        $jeu = Game::where("id", "like", $gameid)->get();
+
+        $resultat = [];
+        $compteur = 0;
+        foreach ($jeu as $g) {
+            $perso = $g->personnages()->get();
+            foreach ($perso as $value) {
+
+                $links = array("self" => array("href" => "/api/characters/" . $value->id));
+                $personnages = array("id" => $value->id, "name" => $value->name);
+                $current = array("character" => $personnages, "links" => $links);
+
+                $resultat[$compteur] =  $current;
+                $compteur++;
+            }
+        }
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        $resultat = array("characters"=>$resultat);
+        echo json_encode($resultat);
+
+
 
     }
 

@@ -24,6 +24,10 @@ $app->get("/api/games/:gameid/comments", function ($gameid){
     (new \src\controleurs\gamecontroleur())->getComments($gameid);
 })->setName("games");
 
+$app->get("/api/games/:gameid/characters", function ($gameid){
+    (new \src\controleurs\gamecontroleur())->getCharacters($gameid);
+});
+
 
 
 $db = new DB();
