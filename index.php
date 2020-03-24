@@ -12,11 +12,17 @@ require_once 'vendor/autoload.php';
 
 $app = new Slim();
 
-$app->get('/', function () {
+$app->get('/api/games/:id', function ($id) {
+    (new \src\controleurs\gamecontroleur())->getGame($id);
+})->setName("game");
 
-})->setName("Menu");
+$app->get("/api/games", function (){
+    (new \src\controleurs\gamecontroleur())->getGames();
+})->setName("games");
 
-
+$app->get("/api/games/:gameid/comments", function ($gameid){
+    (new \src\controleurs\gamecontroleur())->getComments($gameid);
+})->setName("games");
 
 
 
