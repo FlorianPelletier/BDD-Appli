@@ -28,11 +28,6 @@ $app->get("/api/games/:gameid/characters", function ($gameid){
     (new \src\controleurs\gamecontroleur())->getCharacters($gameid);
 })->setName("characters");
 
-$app->get("/api/commentaires/:id", function($id){
-    (new \src\controleurs\gamecontroleur())->getComments($id);
-});
-
-
 
 
 

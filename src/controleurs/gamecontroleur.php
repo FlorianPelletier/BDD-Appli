@@ -120,7 +120,4 @@ class gamecontroleur
         $resultat = array("characters"=>$resultat);
         echo json_encode($resultat);
     }
-
-
-
 }
