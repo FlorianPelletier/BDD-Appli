@@ -27,4 +27,8 @@ class game extends Model
         return $this->belongsToMany('src\models\Game_Rating', 'game2rating', 'game_id', 'rating_id');
     }
 
+    public function commentaire(){
+        return $this->belongsToMany('src\models\Commentaire', 'commentaire2game', 'game_id', 'comment_id');
+    }
+
 }

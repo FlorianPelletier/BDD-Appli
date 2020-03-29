@@ -5,8 +5,11 @@ namespace src\controleurs;
 
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Slim\Http\Util;
 use Slim\Slim;
+use src\models\Commentaire;
 use src\models\game;
+use src\models\Utilisateur;
 
 class gamecontroleur
 {
@@ -75,11 +78,22 @@ class gamecontroleur
 
     public function getComments($gameid)
     {
-        //l'id, le titre, le texte,
+        //Pour chaque commentaire retourné dans la collection, la représentation contient l'id, le titre, le texte,
         //la date de création et le nom de l'utilisateur.
-        $commentaires = "".$gameid;
-        $commentaires = array("commentaires"=>$commentaires);
-        echo json_encode($commentaires);
+        $app = Slim::getInstance();
+
+        $jeux = Game::where('id', 'like', $gameid)->get();
+        $res = [];
+        $compteur = 0;
+        foreach ($jeux as $val){
+            $commentaire = $val->commentaire()->get();
+            $res[$compteur] = $commentaire;
+            $compteur ++;
+        }
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode(array("Comments"=>$res));
     }
 
     public function getCharacters($gameid)
@@ -106,6 +120,7 @@ class gamecontroleur
         $resultat = array("characters"=>$resultat);
         echo json_encode($resultat);
     }
+
 
 
 }
